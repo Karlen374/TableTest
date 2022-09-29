@@ -13,6 +13,18 @@ const SignUpForm = () => {
     setName('');
     setPassword('');
   };
+  const registrationButton = (password.length > 3 && name)
+    ? (
+      <button onClick={userSignUp} className={styles.signUp_button} type="button">
+        Регистрация
+      </button>
+    ) : (
+      <button disabled className={styles.signUp_button} type="button">
+        Регистрация
+      </button>
+    );
+  const validationMessage = (password.length && password.length < 4)
+    ? <h5 className={styles.validateMessage}>Пароль должен содержать минимум 4 символа</h5> : null;
   return (
     <div className={styles.signUp}>
       <h2>Регистрация</h2>
@@ -28,10 +40,9 @@ const SignUpForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      {validationMessage}
       <div>
-        <button onClick={userSignUp} className={styles.signUp_button} type="button">
-          Регистрация
-        </button>
+        {registrationButton}
         <button type="button" onClick={() => dispatch(openSignInModal())}>
           Уже есть аккаунт ?
         </button>

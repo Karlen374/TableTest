@@ -46,6 +46,7 @@ const AppTableFiltration = () => {
         </select>
       </label>
       <input
+        className={styles.input}
         type="text"
         placeholder="значение для фильтрации"
         value={value}

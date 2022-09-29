@@ -28,9 +28,12 @@ const AppHeader = () => {
     );
   return (
     <div className={styles.header}>
+      {registeredUserData
+      && (
       <button onClick={openModal} className={styles.header_button} type="button">
         Добавить
       </button>
+      )}
       {content}
       <AppModals />
     </div>

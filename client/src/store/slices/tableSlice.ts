@@ -2,15 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import useTableServices from 'src/services/useTableService';
 import { ITableData, ITableDataService } from 'src/types/ITableData';
 
-interface IAlertMessage{
-  text: string;
-  alert: 'error' | 'info' | 'success'| 'warning';
-}
 interface TableState {
   createModal:boolean;
   tableData:ITableData[] | null;
-  alertStatus:boolean;
-  alertMessage: IAlertMessage;
   pagesCount: number;
   sortParam: 'default' | 'asc_count' | 'asc_name' | 'asc_distance' | 'desc_count' | 'desc_name' | 'desc_distance';
   activePage:number;
@@ -19,11 +13,6 @@ interface TableState {
 const initialState:TableState = {
   createModal: false,
   tableData: null,
-  alertStatus: false,
-  alertMessage: {
-    text: '',
-    alert: 'success',
-  },
   sortParam: 'default',
   activePage: 1,
   pagesCount: 0,
@@ -97,6 +86,10 @@ const TableSlice = createSlice({
       })
       .addCase(getTableRows.fulfilled, (state, action) => {
         state.tableData = action.payload;
+      })
+      .addCase(createRow.fulfilled, (state, action) => {
+        if (state.tableData) state.tableData = [...state.tableData, action.payload];
+        else state.tableData = [action.payload];
       })
       .addCase(getFilteredTableRows.fulfilled, (state, action) => {
         state.tableData = action.payload;
