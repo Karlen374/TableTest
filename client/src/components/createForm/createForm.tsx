@@ -23,6 +23,7 @@ const CreateForm = () => {
       }));
     }
     dispatch(closeCreateModal());
+    setName('');
   };
   return (
     <div className={styles.createForm}>
